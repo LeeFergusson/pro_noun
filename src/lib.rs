@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-  left + right
-}
+//! # The pro_noun Module
+//!
+//! This module contains types and functions for managing names.
 
-#[cfg(test)]
-mod tests {
-  use super::*;
+// -- Modules
+mod errors;
+mod names;
 
-  #[test]
-  fn it_works() {
-    let result = add(2, 2);
-    assert_eq!(result, 4);
-  }
-}
+// -- Flatern the module structure
+pub use errors::{Error, Result};
+pub use names::*;
