@@ -5,15 +5,15 @@
 use serde::{Deserialize, Serialize};
 
 // -- Internal Modules
-use super::{NameTrait, PersonalName};
+use super::{NameTrait, PersonsName};
 
 // -- Psuedonym Stucture
 #[derive(
   Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
 )]
 pub struct Psydonym {
-  alias_for: PersonalName,
-  name: PersonalName,
+  alias_for: PersonsName,
+  name: PersonsName,
 }
 
 // -- Implement Psydonym
@@ -23,7 +23,7 @@ impl Psydonym {
   /// # Arguments
   /// * `alias_for` - A reference to the CharacterName that the Psydonym is an alias for.
   /// * `name` - A reference to the CharacterName that is the alias.
-  pub fn new(alias_for: &PersonalName, name: &PersonalName) -> Self {
+  pub fn new(alias_for: &PersonsName, name: &PersonsName) -> Self {
     Psydonym {
       alias_for: alias_for.clone(),
       name: name.clone(),
@@ -34,7 +34,7 @@ impl Psydonym {
   ///
   /// # Returns
   /// A reference to the CharacterName that the Psydonym is an alias for.
-  pub fn alias_for(&self) -> &PersonalName {
+  pub fn alias_for(&self) -> &PersonsName {
     &self.alias_for
   }
 
@@ -50,7 +50,7 @@ impl Psydonym {
   ///
   /// # Returns
   /// A reference to the CharacterName that is the true name of the character.
-  pub fn true_name(&self) -> &PersonalName {
+  pub fn true_name(&self) -> &PersonsName {
     &self.alias_for
   }
 }
@@ -92,8 +92,8 @@ mod tests {
 
   #[test]
   fn new_with_valid_values() {
-    let name = PersonalName::new().with_given_name("Olórin").unwrap();
-    let alias = PersonalName::new().with_given_name("Gandalf").unwrap();
+    let name = PersonsName::new().with_given_name("Olórin").unwrap();
+    let alias = PersonsName::new().with_given_name("Gandalf").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 
@@ -103,8 +103,8 @@ mod tests {
 
   #[test]
   fn full_name() {
-    let name = PersonalName::new().with_given_name("Olórin").unwrap();
-    let alias = PersonalName::new().with_given_name("Gandalf").unwrap();
+    let name = PersonsName::new().with_given_name("Olórin").unwrap();
+    let alias = PersonsName::new().with_given_name("Gandalf").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 
@@ -113,8 +113,8 @@ mod tests {
 
   #[test]
   fn true_name() {
-    let name = PersonalName::new().with_given_name("Olórin").unwrap();
-    let alias = PersonalName::new().with_given_name("Gandalf").unwrap();
+    let name = PersonsName::new().with_given_name("Olórin").unwrap();
+    let alias = PersonsName::new().with_given_name("Gandalf").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 
@@ -123,8 +123,8 @@ mod tests {
 
   #[test]
   fn name_trait_given_name() {
-    let name = PersonalName::new().with_given_name("Olórin").unwrap();
-    let alias = PersonalName::new().with_given_name("Gandalf").unwrap();
+    let name = PersonsName::new().with_given_name("Olórin").unwrap();
+    let alias = PersonsName::new().with_given_name("Gandalf").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 
@@ -133,8 +133,8 @@ mod tests {
 
   #[test]
   fn name_trait_family_name() {
-    let name = PersonalName::new().with_family_name("Mithrandir").unwrap();
-    let alias = PersonalName::new().with_family_name("Greyhame").unwrap();
+    let name = PersonsName::new().with_family_name("Mithrandir").unwrap();
+    let alias = PersonsName::new().with_family_name("Greyhame").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 
@@ -143,8 +143,8 @@ mod tests {
 
   #[test]
   fn name_trait_full_name() {
-    let name = PersonalName::new().with_given_name("Olórin").unwrap();
-    let alias = PersonalName::new().with_given_name("Gandalf").unwrap();
+    let name = PersonsName::new().with_given_name("Olórin").unwrap();
+    let alias = PersonsName::new().with_given_name("Gandalf").unwrap();
 
     let psuedonym = Psydonym::new(&name, &alias);
 

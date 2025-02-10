@@ -16,16 +16,16 @@ use super::{FamilyName, GivenName, MiddleName, Psydonym};
 #[derive(
   Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
 )]
-pub struct PersonalName {
+pub struct PersonsName {
   given_name: Option<GivenName>,
   middle_names: Vec<MiddleName>,
   family_name: Option<FamilyName>,
 }
 
 // -- Implement Default for PersonalName
-impl Default for PersonalName {
+impl Default for PersonsName {
   fn default() -> Self {
-    PersonalName {
+    PersonsName {
       given_name: None,
       middle_names: Vec::new(),
       family_name: None,
@@ -34,7 +34,7 @@ impl Default for PersonalName {
 }
 
 // -- Implement Display for PersonalName
-impl std::fmt::Display for PersonalName {
+impl std::fmt::Display for PersonsName {
   fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
     match &self.family_name {
       Some(family_name) => match &self.given_name {
@@ -50,13 +50,13 @@ impl std::fmt::Display for PersonalName {
 }
 
 // -- Implement CharacterName
-impl PersonalName {
+impl PersonsName {
   /// Creates a new CharacterName instance.
   ///
   /// # Returns
   /// A CharacterName instance.
   pub fn new() -> Self {
-    PersonalName {
+    PersonsName {
       given_name: None,
       middle_names: Vec::new(),
       family_name: None,
@@ -89,19 +89,17 @@ impl PersonalName {
   /// A Result containing the CharacterName or an Error
   pub fn with_given_name(self, name: &str) -> Result<Self, Error> {
     let given_name = GivenName::new(name)?;
-    Ok(PersonalName {
+    Ok(PersonsName {
       given_name: Some(given_name),
-      // middle_names: self.middle_names,
-      // family_name: self.family_name,
       ..self
     })
   }
 
   pub fn with_middle_name(self, name: &str) -> Result<Self, Error> {
-    let middle_name = MiddleName::new(name)?;
+    let middle_name = MiddleName::new(name).unwrap();
     let mut middle_names = self.middle_names;
     middle_names.push(middle_name);
-    Ok(PersonalName {
+    Ok(PersonsName {
       given_name: self.given_name,
       middle_names,
       family_name: self.family_name,
@@ -117,9 +115,7 @@ impl PersonalName {
   /// A Result containing the CharacterName or an Error
   pub fn with_family_name(self, name: &str) -> Result<Self, Error> {
     let family_name = FamilyName::new(name)?;
-    Ok(PersonalName {
-      // given_name: self.given_name,
-      // middle_names: self.middle_names,
+    Ok(PersonsName {
       family_name: Some(family_name),
       ..self
     })
@@ -180,7 +176,7 @@ impl PersonalName {
 }
 
 pub enum Name {
-  TrueName(PersonalName),
+  TrueName(PersonsName),
   Psuedonym(Psydonym),
 }
 
