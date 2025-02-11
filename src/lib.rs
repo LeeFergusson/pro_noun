@@ -5,7 +5,9 @@
 // -- Modules
 mod errors;
 mod names;
+mod titles;
 
 // -- Flatern the module structure
 pub use errors::{Error, Result};
 pub use names::*;
+pub use titles::*;
